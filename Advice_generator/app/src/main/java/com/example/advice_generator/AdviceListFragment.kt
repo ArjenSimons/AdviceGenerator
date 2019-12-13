@@ -10,7 +10,7 @@ import android.view.ViewGroup
 /**
  * A simple [Fragment] subclass.
  */
-class AdviceList : Fragment() {
+class AdviceListFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -19,6 +19,5 @@ class AdviceList : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_advice_list, container, false)
     }
-
 
 }
