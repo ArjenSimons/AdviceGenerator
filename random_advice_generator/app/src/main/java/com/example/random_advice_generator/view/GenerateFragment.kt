@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.random_advice_generator.R
+import com.example.random_advice_generator.model.Advice
 import kotlinx.android.synthetic.main.fragment_generate.*
 
 /**
@@ -36,6 +37,7 @@ class GenerateFragment : Fragment() {
 
     private fun setOnClickListeners(){
         btnRefresh.setOnClickListener { viewModel.getRandomAdvice() }
+        btnSave.setOnClickListener{ viewModel.insertAdvice(Advice(viewModel.currentAdvice, 2))}
     }
 
     private fun initViewModel(){

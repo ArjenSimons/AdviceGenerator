@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.random_advice_generator.R
 import com.example.random_advice_generator.model.Advice
-import kotlinx.android.synthetic.main.fragment_generate.view.*
 import kotlinx.android.synthetic.main.item.view.*
 
-class AdviceAdapter(private val advices: List<Advice>): RecyclerView.Adapter<AdviceAdapter.ViewHolder>() {
+class AdviceAdapter(private val advices: List<Advice>, private val removeClickListener: (Advice) -> Unit):
+    RecyclerView.Adapter<AdviceAdapter.ViewHolder>() {
 
     private lateinit var context: Context
 
@@ -34,6 +34,7 @@ class AdviceAdapter(private val advices: List<Advice>): RecyclerView.Adapter<Adv
         fun bind(advice: Advice){
             itemView.tvAdvice.text = advice.advice
             itemView.tvRating.text = advice.rating.toString()
+            itemView.btnRemove.setOnClickListener{ removeClickListener(advice)}
         }
     }
 }

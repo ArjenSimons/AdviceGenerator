@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.random_advice_generator.R
 import com.example.random_advice_generator.model.Advice
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.item.*
 
 /**
  * A simple [Fragment] subclass.
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : Fragment() {
 
     private val advices = arrayListOf<Advice>()
-    private val adapter = AdviceAdapter(advices)
+    private val adapter = AdviceAdapter(advices, this::onRemoveButtonClicked)
 
     private lateinit var viewModel: HomeFragmentViewModel
 
@@ -42,7 +43,6 @@ class HomeFragment : Fragment() {
     private fun initViews(){
         rvAdvice.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         rvAdvice.adapter = adapter
-
     }
 
     private fun initViewModel(){
@@ -53,6 +53,9 @@ class HomeFragment : Fragment() {
             this@HomeFragment.advices.addAll(advices)
             adapter.notifyDataSetChanged()
         })
+    }
 
+    private fun onRemoveButtonClicked(advice: Advice){
+        viewModel.deleteAdvice(advice)
     }
 }
