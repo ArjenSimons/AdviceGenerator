@@ -1,4 +1,4 @@
-package com.example.random_advice_generator.database
+package com.example.random_advice_generator.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

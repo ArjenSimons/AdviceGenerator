@@ -1,4 +1,4 @@
-package com.example.random_advice_generator.database
+package com.example.random_advice_generator.data.database
 
 import android.content.Context
 import androidx.room.Database
@@ -23,7 +23,8 @@ abstract class AdviceRoomDatabase : RoomDatabase(){
                     if(adviceRoomDataBaseInstance == null){
                         adviceRoomDataBaseInstance = Room.databaseBuilder(
                             context.applicationContext,
-                            AdviceRoomDatabase::class.java, DATABASE_NAME
+                            AdviceRoomDatabase::class.java,
+                            DATABASE_NAME
                         ).build()
                     }
                 }

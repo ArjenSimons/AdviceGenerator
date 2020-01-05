@@ -1,4 +1,4 @@
-package com.example.random_advice_generator.database
+package com.example.random_advice_generator.data.database
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -9,7 +9,10 @@ class AdviceRepository(context: Context) {
     private var adviceDao: AdviceDao
 
     init{
-        val adviceRoomDatabase = AdviceRoomDatabase.getDatabase(context)
+        val adviceRoomDatabase =
+            AdviceRoomDatabase.getDatabase(
+                context
+            )
         adviceDao = adviceRoomDatabase!!.adviceDao()
     }
 
