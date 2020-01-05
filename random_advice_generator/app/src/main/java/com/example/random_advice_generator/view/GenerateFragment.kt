@@ -1,17 +1,17 @@
 package com.example.random_advice_generator.view
 
 
-import android.app.Application
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.random_advice_generator.R
 import com.example.random_advice_generator.model.Advice
 import kotlinx.android.synthetic.main.fragment_generate.*
+import kotlinx.android.synthetic.main.rate_popup.*
 
 /**
  * A simple [Fragment] subclass.
@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_generate.*
 class GenerateFragment : Fragment() {
 
     private lateinit var viewModel: GenerateFragmentViewModel
+    private lateinit var alertDialog: AlertDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +38,7 @@ class GenerateFragment : Fragment() {
 
     private fun setOnClickListeners(){
         btnRefresh.setOnClickListener { viewModel.getRandomAdvice() }
-        btnSave.setOnClickListener{ viewModel.insertAdvice(Advice(viewModel.currentAdvice, 2))}
+        btnSave.setOnClickListener{ openRatePopup() }
     }
 
     private fun initViewModel(){
@@ -53,4 +54,24 @@ class GenerateFragment : Fragment() {
             tvAdvice.text = "Woops, something went wrong, try again!"
     }
 
+    private fun openRatePopup(){
+        val mDialogView =LayoutInflater.from(context).inflate(R.layout.rate_popup, null)
+        val mBuilder = AlertDialog.Builder(context).setView(mDialogView)
+        alertDialog = mBuilder.show()
+
+        setRateListeners()
+    }
+
+    private fun setRateListeners(){
+        alertDialog.btnOne.setOnClickListener{ onAdviceRated(1) }
+        alertDialog.btnTwo.setOnClickListener{ onAdviceRated(2) }
+        alertDialog.btnThree.setOnClickListener{ onAdviceRated(3) }
+        alertDialog.btnFour.setOnClickListener{ onAdviceRated(4) }
+        alertDialog.btnFive.setOnClickListener{ onAdviceRated(5) }
+    }
+
+    private fun onAdviceRated(rating: Int){
+        viewModel.insertAdvice(Advice(viewModel.currentAdvice, rating))
+        alertDialog.dismiss()
+    }
 }

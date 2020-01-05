@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        adapter.advices.sortBy { it.rating }
         initViews()
         initViewModel()
     }
@@ -52,6 +52,7 @@ class HomeFragment : Fragment() {
             this@HomeFragment.advices.clear()
             this@HomeFragment.advices.addAll(advices)
             adapter.notifyDataSetChanged()
+            adapter.advices.sortByDescending { it.rating }
         })
     }
 

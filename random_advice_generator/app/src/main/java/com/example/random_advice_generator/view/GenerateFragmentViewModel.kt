@@ -28,8 +28,6 @@ class GenerateFragmentViewModel(application: Application) : AndroidViewModel(app
     val advice = MutableLiveData<RandomAdvice>()
     private val error = MutableLiveData<String>()
 
-    val advices = adviceRepository.getAllAdvice()
-
     fun getRandomAdvice(){
         adviceApiRepository.getRandomAdvice().enqueue(object : Callback<RandomAdvice> {
 

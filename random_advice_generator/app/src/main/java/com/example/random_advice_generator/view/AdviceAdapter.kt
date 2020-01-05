@@ -9,7 +9,7 @@ import com.example.random_advice_generator.R
 import com.example.random_advice_generator.model.Advice
 import kotlinx.android.synthetic.main.item.view.*
 
-class AdviceAdapter(private val advices: List<Advice>, private val removeClickListener: (Advice) -> Unit):
+class AdviceAdapter(val advices: MutableList<Advice>, private val removeClickListener: (Advice) -> Unit):
     RecyclerView.Adapter<AdviceAdapter.ViewHolder>() {
 
     private lateinit var context: Context
