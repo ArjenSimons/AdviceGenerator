@@ -27,6 +27,10 @@ class MainActivity : AppCompatActivity() {
         setListeners()
     }
 
+    /**
+     * Initializes the navigationController.
+     *
+     */
     private fun initNavigation(){
         navController = findNavController(R.id.navHostFragment)
 
@@ -36,11 +40,20 @@ class MainActivity : AppCompatActivity() {
         toolbar.setupWithNavController(navController, appBarConfiguration)
     }
 
+    /**
+     * Sets listeners for the navigation buttons.
+     *
+     */
     private fun setListeners(){
         navView.menu.getItem(0).setOnMenuItemClickListener { onHomeButtonClicked() }
         navView.menu.getItem(1).setOnMenuItemClickListener { onGenerateButtonClicked() }
     }
 
+    /**
+     * Handles the homebutton being clicked.
+     *
+     * @return true if completed.
+     */
     private fun onHomeButtonClicked() : Boolean {
         return if (navController.currentDestination?.id != R.id.homeFragment2) {
             NavHostFragment.findNavController(navHostFragment).navigate(R.id.homeFragment2)
@@ -50,6 +63,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Handles the generate button being clicked.
+     *
+     * @return True if completed.
+     */
     private fun onGenerateButtonClicked() : Boolean {
         return if (navController.currentDestination?.id != R.id.generateFragment2) {
             NavHostFragment.findNavController(navHostFragment).navigate(R.id.generateFragment2)

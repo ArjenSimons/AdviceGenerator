@@ -3,6 +3,7 @@ package com.example.random_advice_generator.view
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.example.random_advice_generator.R
 import com.example.random_advice_generator.data.api.AdviceApiRepository
 import com.example.random_advice_generator.data.database.AdviceRepository
 import com.example.random_advice_generator.model.Advice
@@ -20,6 +21,7 @@ class GenerateFragmentViewModel(application: Application) : AndroidViewModel(app
 
     lateinit var onAdviceChanged: (String, Boolean) -> Unit
 
+    private val context = application.applicationContext
     private val ioScope = CoroutineScope(Dispatchers.IO)
     private val adviceRepository =
         AdviceRepository(application.applicationContext)
@@ -28,6 +30,10 @@ class GenerateFragmentViewModel(application: Application) : AndroidViewModel(app
     val advice = MutableLiveData<RandomAdvice>()
     private val error = MutableLiveData<String>()
 
+    /**
+     * Gets a random advice from the api
+     *
+     */
     fun getRandomAdvice(){
         adviceApiRepository.getRandomAdvice().enqueue(object : Callback<RandomAdvice> {
 
@@ -37,7 +43,7 @@ class GenerateFragmentViewModel(application: Application) : AndroidViewModel(app
                     currentAdvice = advice.value!!.slip.advice
                     onAdviceChanged(currentAdvice, false)
                 }else {
-                    error.value = "response failed: ${response.errorBody().toString()}"
+                    error.value = context.getString(R.string.response_failed)
                     onAdviceChanged("", true)
                 }
             }
@@ -49,6 +55,11 @@ class GenerateFragmentViewModel(application: Application) : AndroidViewModel(app
         })
     }
 
+    /**
+     * Adds an advice to the local database
+     *
+     * @param advice The advice to add
+     */
     fun insertAdvice(advice: Advice){
         ioScope.launch {
             adviceRepository.insertAdvice(advice)

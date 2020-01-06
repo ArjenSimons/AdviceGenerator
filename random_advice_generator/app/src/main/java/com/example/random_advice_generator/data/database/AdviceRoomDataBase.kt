@@ -17,6 +17,12 @@ abstract class AdviceRoomDatabase : RoomDatabase(){
         @Volatile
         private var adviceRoomDataBaseInstance: AdviceRoomDatabase? = null
 
+        /**
+         * Gets the database
+         *
+         * @param context The app context
+         * @return An instance of the database
+         */
         fun getDatabase(context: Context): AdviceRoomDatabase? {
             if(adviceRoomDataBaseInstance == null){
                 synchronized(AdviceRoomDatabase::class.java){

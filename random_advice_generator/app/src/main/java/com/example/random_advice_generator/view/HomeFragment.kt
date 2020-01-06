@@ -40,11 +40,19 @@ class HomeFragment : Fragment() {
         initViewModel()
     }
 
+     /**
+     * Sets the ListView to use the right adapter and settings
+     *
+     */
     private fun initViews(){
         rvAdvice.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         rvAdvice.adapter = adapter
     }
 
+    /**
+     * Declares the ViewModel.
+     *
+     */
     private fun initViewModel(){
         viewModel = ViewModelProviders.of(this).get(HomeFragmentViewModel::class.java)
 
@@ -56,6 +64,11 @@ class HomeFragment : Fragment() {
         })
     }
 
+    /**
+     * Handles the remove button.
+     *
+     * @param advice The advice to be deleted
+     */
     private fun onRemoveButtonClicked(advice: Advice){
         viewModel.deleteAdvice(advice)
     }

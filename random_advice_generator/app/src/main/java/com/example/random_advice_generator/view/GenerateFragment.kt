@@ -36,24 +36,42 @@ class GenerateFragment : Fragment() {
         setOnClickListeners()
     }
 
+    /**
+     * Sets listeners
+     *
+     */
     private fun setOnClickListeners(){
         btnRefresh.setOnClickListener { viewModel.getRandomAdvice() }
         btnSave.setOnClickListener{ openRatePopup() }
     }
 
+    /**
+     * Initializes the viewModel
+     *
+     */
     private fun initViewModel(){
         viewModel = ViewModelProviders.of(this).get(GenerateFragmentViewModel::class.java)
         viewModel.onAdviceChanged = this::onAdviceChanged
         viewModel.getRandomAdvice()
     }
 
+    /**
+     * Handles the advice being changed.
+     *
+     * @param advice The advice
+     * @param failed True if api call failed.
+     */
     private fun onAdviceChanged(advice: String, failed: Boolean = false){
         if (!failed)
             tvAdvice.text = advice
         else
-            tvAdvice.text = "Woops, something went wrong, try again!"
+            tvAdvice.text = context!!.getString(R.string.response_failed_notify)
     }
 
+    /**
+     * Opens the rate popup
+     *
+     */
     private fun openRatePopup(){
         val mDialogView =LayoutInflater.from(context).inflate(R.layout.rate_popup, null)
         val mBuilder = AlertDialog.Builder(context).setView(mDialogView)
@@ -62,6 +80,10 @@ class GenerateFragment : Fragment() {
         setRateListeners()
     }
 
+    /**
+     * Sets listeners for the rate buttons
+     *
+     */
     private fun setRateListeners(){
         alertDialog.btnOne.setOnClickListener{ onAdviceRated(1) }
         alertDialog.btnTwo.setOnClickListener{ onAdviceRated(2) }
@@ -70,6 +92,11 @@ class GenerateFragment : Fragment() {
         alertDialog.btnFive.setOnClickListener{ onAdviceRated(5) }
     }
 
+    /**
+     * Handles an advice being rated
+     *
+     * @param rating The rating given
+     */
     private fun onAdviceRated(rating: Int){
         viewModel.insertAdvice(Advice(viewModel.currentAdvice, rating))
         alertDialog.dismiss()

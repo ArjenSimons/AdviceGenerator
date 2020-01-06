@@ -16,18 +16,38 @@ class AdviceRepository(context: Context) {
         adviceDao = adviceRoomDatabase!!.adviceDao()
     }
 
+    /**
+     * Gets all saved advices
+     *
+     * @return A list with saved advices
+     */
     fun getAllAdvice(): LiveData<List<Advice>>{
         return adviceDao.getAllAdvice()
     }
 
+    /**
+     * Inserts an advice to the local database
+     *
+     * @param advice The advice to insert
+     */
     fun insertAdvice(advice: Advice){
         return adviceDao.insertAdvice(advice)
     }
 
+    /**
+     * Deletes an advice from the local database
+     *
+     * @param advice The advice to delete
+     */
     suspend fun deleteAdvice(advice: Advice){
         return adviceDao.deleteAdvice(advice)
     }
 
+    /**
+     * Updates an advice from the local database
+     *
+     * @param advice The advice to update
+     */
     suspend fun updateAdvice(advice: Advice){
         return adviceDao.updateAdvice(advice)
     }

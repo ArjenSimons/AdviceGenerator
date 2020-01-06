@@ -16,6 +16,11 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
 
     val advices = adviceRepository.getAllAdvice()
 
+    /**
+     * Deletes an advice
+     *
+     * @param advice
+     */
     fun deleteAdvice(advice: Advice){
         ioScope.launch {
             adviceRepository.deleteAdvice(advice)
